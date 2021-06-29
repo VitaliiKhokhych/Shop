@@ -1,0 +1,92 @@
+.center
+  display: flex
+  flex-direction: column
+  font-weight: 700
+  margin: 25px 35px
+  .banner
+    width: 620px
+    height: 160px
+    background: #F5F5F7
+    .banner--text
+      height: 100%
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: start
+      padding-left: 30px
+      .banner--text1
+        font-family: $font1
+        font-size: 36px
+        font-weight: 700
+      .banner--text2
+        font-family: $font2
+        font-weight: 400
+    .banner--pic
+      width: 175px
+      height: 191px
+      background: url('images/banner.svg') center no-repeat
+      background-size: 100% 100%
+      position: relative
+      top: -192px
+      left: 100%
+      margin-left: -250px
+      z-index: 2
+  .reklama
+    width: 620px
+    height: 80px
+  .courses
+    width: 620px
+    display: flex
+    flex-direction: column
+    .courses--title
+      font-size: 24px
+      text-align: left
+    .courses--tabs
+      display: flex
+      justify-content: start
+      .courses--tab
+        padding: 5px 30px 5px 0
+        &:nth-child(n+2)
+          opacity: .3
+    .courses--items
+      display: flex
+      flex-direction: column
+      .course
+        background: #F5F5F7
+        border-radius: 14px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 620px
+        height: auto
+        padding: 8px 23px 8px 8px
+        box-sizing: border-box
+        margin-bottom: 15px
+        @each $i in (figma, analog, instagram, drawing, photoshop)
+          .course--logo-#{$i}
+            background-image: url('images/#{$i}.png')
+        .course--logo
+          width: 64px
+          height: 64px
+          border-radius: 12px
+          background-color: #fff
+          background-position: center
+          background-repeat: no-repeat
+        .course--info
+          display: flex
+          flex-direction: column
+          width: 150px
+          .course--name
+            font-weight: 700
+          .course--author
+            font-size: 13px
+        .course--time
+          background: url('images/time.svg') left no-repeat
+          background-size: 16px 16px
+          padding-left: 22px
+        .course--rate
+          background: url('images/flame.svg') left no-repeat
+          background-size: 16px 16px
+          padding-left: 22px
+        .course--view
+          display: block
