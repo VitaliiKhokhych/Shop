@@ -1,0 +1,57 @@
+
+=end-center()
+  display: flex
+  justify-content: flex-end
+  align-items: center
+=end-center-col()
+  +end-center()
+  flex-direction: column
+
+=center-center()
+  display: flex
+  justify-content: center
+  align-items: center
+=center-center-col()
+  +center-center()
+  flex-direction: column
+
+=between-center()
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+
+=col()
+  display: flex
+  flex-direction: column
+
+=upp-centr() 
+  text-transform: uppercase
+  text-align: center
+
+
+
+
+
+
+
+=breakpoint($width, $height) 
+  @media screen and (max-device-width: $width) 
+    max-width: $width
+    height: round($height)
+
+=media($bp)
+  @media screen and (max-width: $bp)
+    @content
+
+
+=font($font, $size, $weight)
+  font-family: $font
+  font-size: $size + $unit
+  font-weight: $weight
+  line-height: 150%
+
+
+=block($a)
+  max-width: $a + $unit
+  margin: 0 auto
