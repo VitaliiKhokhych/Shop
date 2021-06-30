@@ -1,0 +1,89 @@
+.other
+  display: flex
+  flex-direction: column
+  .other--top
+    display: flex
+    justify-content: space-between
+    padding-right: 15px
+    .search
+      width: 300px
+      height: 40px
+      background: #E5E5E5 url('images/search.svg') 10px center no-repeat
+      padding-left: 40px
+      border: none
+      border-radius: 8px
+    .notifications
+      width: 30px
+      height: 36px  
+      background: url('images/bell.svg') center no-repeat
+      &::before
+        display: block
+        content: '1'
+        width: 14px
+        height: 14px
+        background: #F45B5B
+        color: #fff
+        font-family: $font2
+        font-size: 10px
+        text-align: center
+        padding: auto
+        border-radius: 50%
+        position: relative
+        left: 20px
+    .user
+      width: 40px
+      height: 40px
+      background: url('images/user.jpg') center -10px no-repeat
+      border-radius: 8px
+      margin-left: 30px
+      &::after
+        display: block
+        content: ''
+        background: url('images/arrow.svg') center no-repeat
+        width: 10px
+        height: 15px
+        position: relative
+        top: 15px
+        left: 45px
+  .other--coureses
+    display: flex
+    justify-content: space-between
+    .other--coureses-item
+      width: 208px
+      height: 106px
+      background: #E5E5E5
+      border-radius: 14px
+      display: flex
+      justify-content: center
+      align-items: center
+      margin: 10px 0
+      .other--coureses-num
+        font-family: $font1
+        font-size: 64px
+        margin-right: 5px
+      .other--coureses-text
+        font-family: $font2
+        font-weight: 400
+  .other--statistic
+  .other--buy
+    width: 440px
+    height: 190px
+    display: flex
+    justify-content: space-around
+    align-items: center
+    background: #F5F5F7
+    border-radius: 14px
+    .other--buy-left
+      display: flex
+      flex-direction: column
+      .other--buy-title
+        font-size: 24px
+        font-weight: 700
+      .other--buy-text
+        font-family: $font2
+        margin: 10px 0 20px
+      .other--buy-button
+    .other--buy-right
+      width: 125px
+      height: 125px
+      background: url('images/learn.svg') center no-repeat
