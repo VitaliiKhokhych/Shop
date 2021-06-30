@@ -126,18 +126,22 @@ gulp.task('image:pro', function () {
   .pipe(gulp.dest('production/'));
 });
 
+gulp.task('font', function () {
+  return gulp.src('./dev/fonts/*')
+  .pipe(gulp.dest('production/'));
+});
 
 gulp.task('watch:dev', function() {
   gulp.watch('dev/index.pug', gulp.parallel('pug2html'));
   gulp.watch('dev/components/**/*.pug', gulp.parallel('pug2html'));
   gulp.watch(src.style, gulp.parallel('style:dev'));
   gulp.watch(src.script, gulp.parallel('script:dev'));
+  gulp.watch('./dev/fonts/*', gulp.parallel('font'));
   gulp.watch('dev/components/**/images/*', gulp.parallel('image:dev'));
 });
 
 gulp.task('dev', gulp.series(
-  // gulp.parallel('clean'),
-  gulp.parallel('pug2html', 'style:dev', 'script:dev', 'image:dev'),
+  gulp.parallel('pug2html', 'style:dev', 'script:dev', 'image:dev', 'font'),
   gulp.parallel('watch:dev')
 ));
 
@@ -151,7 +155,7 @@ gulp.task('watch:pro', function () {
 
 gulp.task('pro', gulp.series(
   gulp.parallel('clean'),
-  gulp.parallel('pug2html', 'style:pro', 'script:pro', 'image:pro'),
+  gulp.parallel('pug2html', 'style:pro', 'script:pro', 'image:pro', 'font'),
   gulp.parallel('watch:pro')
 ));
   
