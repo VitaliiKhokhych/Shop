@@ -32,7 +32,6 @@
       margin-left: -250px
       z-index: 2
   .reklama
-    width: 620px
     height: 80px
   .courses
     width: 620px
@@ -49,7 +48,7 @@
         &:nth-child(n+2)
           opacity: .3
     .courses--items
-      display: flex
+      display: none
       flex-direction: column
       .course
         background: #F5F5F7
@@ -75,18 +74,25 @@
         .course--info
           display: flex
           flex-direction: column
-          width: 150px
+          width: 160px
           .course--name
             font-weight: 700
           .course--author
+            +courseFont()
             font-size: 13px
         .course--time
+          +courseFont()
           background: url('images/time.svg') left no-repeat
           background-size: 16px 16px
           padding-left: 22px
         .course--rate
+          +courseFont()
           background: url('images/flame.svg') left no-repeat
           background-size: 16px 16px
           padding-left: 22px
         .course--view
           display: block
+.active
+  display: flex!important
+.none
+  display: none!important
