@@ -1,21 +1,40 @@
 .other
   display: flex
   flex-direction: column
+  grid-area: other
+  @media screen and ( min-width: 450px )
+    margin-left: 15px
   .other--top
-    display: flex
-    justify-content: space-between
-    padding-right: 15px
+    width: calc( 100% - 20px )
     .search
-      width: 300px
+      width: calc( 100% - 110px )
       height: 40px
       background: #E5E5E5 url('images/search.svg') 10px center no-repeat
       padding-left: 40px
       border: none
       border-radius: 8px
+    .user
+      float: right
+      width: 40px
+      height: 40px
+      background: url('images/user.jpg') center -10px no-repeat
+      border-radius: 8px
+      margin-left: 20px
+      &::after
+        display: block
+        content: ''
+        background: url('images/arrow.svg') center no-repeat
+        width: 10px
+        height: 15px
+        position: relative
+        top: 15px
+        left: 45px
     .notifications
+      float: right
       width: 30px
       height: 36px  
       background: url('images/bell.svg') center no-repeat
+      margin-left: 10px
       &::before
         display: block
         content: '1'
@@ -30,25 +49,14 @@
         border-radius: 50%
         position: relative
         left: 20px
-    .user
-      width: 40px
-      height: 40px
-      background: url('images/user.jpg') center -10px no-repeat
-      border-radius: 8px
-      &::after
-        display: block
-        content: ''
-        background: url('images/arrow.svg') center no-repeat
-        width: 10px
-        height: 15px
-        position: relative
-        top: 15px
-        left: 45px
   .other--coureses
     display: flex
     justify-content: space-between
+    width: 100%
+    +media(450px)
+      flex-direction: column
     .other--coureses-item
-      width: 208px
+      width: 46%
       height: 106px
       background: #E5E5E5
       border-radius: 14px
@@ -56,6 +64,8 @@
       justify-content: center
       align-items: center
       margin: 10px 0
+      +media(450px)
+        width: 100%
       .other--coureses-num
         font-family: $font1
         font-size: 64px
@@ -65,16 +75,23 @@
         font-weight: 400
   .other--statistic
   .other--buy
-    width: 440px
+    width: 100%
     height: 190px
     display: flex
     justify-content: space-around
     align-items: center
     background: #F5F5F7
+    padding: 15px
+    box-sizing: border-box
     border-radius: 14px
+    +media(550px)
+      flex-direction: column-reverse
+      height: auto
     .other--buy-left
       display: flex
       flex-direction: column
+      +media(550px)
+        align-items: center
       .other--buy-title
         font-size: 24px
         font-weight: 700

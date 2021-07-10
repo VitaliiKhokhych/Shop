@@ -2,11 +2,19 @@
   display: flex
   flex-direction: column
   font-weight: 700
-  margin: 25px 35px
+  margin-top: 25px
+  grid-area: main
+  @media screen and ( min-width: 450px )
+    margin-left: 15px
   .banner
-    width: 620px
+    width: 100%
     height: 160px
     background: #F5F5F7
+    margin-bottom: 15px
+    border-radius: 14px
+    +media(670px)
+      display: grid
+      justify-content: center
     .banner--text
       height: 100%
       display: flex
@@ -14,6 +22,8 @@
       justify-content: center
       align-items: start
       padding-left: 30px
+      +media(670px)
+        padding: 0
       .banner--text1
         font-family: $font1
         font-size: 36px
@@ -31,10 +41,13 @@
       left: 100%
       margin-left: -250px
       z-index: 2
+      +media(670px)
+        display: none
   .reklama
     height: 80px
+    display: none
   .courses
-    width: 620px
+    width: 100%
     display: flex
     flex-direction: column
     .courses--title
@@ -43,24 +56,40 @@
     .courses--tabs
       display: flex
       justify-content: start
+      +media(700px)
+        display: block
       .courses--tab
         padding: 5px 30px 5px 0
+        +media(700px)
+          float: left
+          width: auto
         &:nth-child(n+2)
           opacity: .3
     .courses--items
       display: none
       flex-direction: column
+      &:nth-of-type(n+4)
+        font-size: 60px
       .course
         background: #F5F5F7
         border-radius: 14px
         display: flex
         justify-content: space-between
         align-items: center
-        width: 620px
+        width: 100%
         height: auto
         padding: 8px 23px 8px 8px
         box-sizing: border-box
         margin-bottom: 15px
+        +media(800px)
+          display: grid
+          grid-template-areas: "logo info info" "time rate button"
+          grid-template-columns: 1fr, 8fr repeat (2fr, 3)
+          grid-gap: 10px
+        +media(550px)
+          grid-template-areas: "logo logo" "info info" "time rate" "button button"
+          grid-template-columns: 1fr, 7fr repeat (4fr, 2), 8fr
+          justify-content: center
         @each $i in (figma, analog, instagram, drawing, photoshop)
           .course--logo-#{$i}
             background-image: url('images/#{$i}.png')
@@ -71,28 +100,44 @@
           background-color: #fff
           background-position: center
           background-repeat: no-repeat
+          +media(800px)
+            grid-area: logo
+          +media(550px)
+            justify-self: center
         .course--info
           display: flex
           flex-direction: column
           width: 160px
+          +media(800px)
+            grid-area: info
+          +media(550px)
+            justify-self: center
           .course--name
             font-weight: 700
+            +media(550px)
+              text-align: center
           .course--author
             +courseFont()
             font-size: 13px
+            +media(550px)
+              text-align: center
         .course--time
           +courseFont()
           background: url('images/time.svg') left no-repeat
           background-size: 16px 16px
           padding-left: 22px
+          +media(800px)
+            grid-area: time
         .course--rate
           +courseFont()
           background: url('images/flame.svg') left no-repeat
           background-size: 16px 16px
           padding-left: 22px
+          +media(800px)
+            grid-area: rate
         .course--view
           display: block
-.active
-  display: flex!important
-.none
-  display: none!important
+          +media(800px)
+            grid-area: button
+          +media(550px)
+            justify-self: center

@@ -1,14 +1,28 @@
 body, ul, li
   margin: 0
   padding: 0
-  padding: 30px
 
 body
   font-family: $font1
   font-weight: 400
   font-size: 16px
   color: $color1
-  display: flex
+
+.wrapper
+  display: grid
+  grid-template-areas: "menu main other"
+  grid-template-columns: 1fr 5fr 3fr
+  padding: 30px
+  +media(1250px)
+    grid-template-areas: "menu other" "menu main"
+    grid-template-columns: 1fr 10fr
+  +media(600px)
+    grid-template-columns: 1fr 4fr
+    padding: 15px
+  +media(450px)
+    grid-template-columns: 5fr
+    grid-template-areas: "menu" "other" "main"
+    margin-top: 40px
 
 li
   list-style-type: none
@@ -34,3 +48,9 @@ a
   border-radius: 8px
   box-sizing: border-box
 
+.active
+  display: flex!important
+.none
+  display: none!important
+.block
+  display: block!important

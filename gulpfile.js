@@ -96,7 +96,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('image:dev', function () {
-  return gulp.src('./dev/components/**/images/*.+(png|jpg|svg)')
+  return gulp.src('./dev/favicon.ico', './dev/components/**/images/*.+(png|jpg|svg)')
   .pipe(rename({
     dirname: "images",
   }))
@@ -104,7 +104,7 @@ gulp.task('image:dev', function () {
 });
 
 gulp.task('image:pro', function () {
-  return gulp.src('./dev/components/**/images/*.+(png|jpg|svg)')
+  return gulp.src('./dev/favicon.ico', './dev/components/**/images/*.+(png|jpg|svg)')
   .pipe(imagemin([
     imagemin.gifsicle({interlaced: true}),
     imagemin.mozjpeg({quality: 75, progressive: true}),
@@ -128,7 +128,7 @@ gulp.task('image:pro', function () {
 
 gulp.task('font', function () {
   return gulp.src('./dev/fonts/*')
-  .pipe(gulp.dest('production/'));
+  .pipe(gulp.dest('production/fonts/'));
 });
 
 gulp.task('watch:dev', function() {
