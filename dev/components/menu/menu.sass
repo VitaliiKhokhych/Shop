@@ -50,6 +50,8 @@
   margin-bottom: 50px
   text-align: center
   display: none
+  +media(450px)
+    display: block
 
 .modal
   display: none
@@ -69,5 +71,7 @@
     width: calc(100% - 30px)
     position: fixed
     z-index: 10
+  @media screen and ( min-width: 451px )
+    display: none!important
     .quit
       margin-top: 20px

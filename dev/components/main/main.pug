@@ -8,11 +8,11 @@
   main.courses
     .courses--title Courses
     .courses--tabs
-      .courses--tab All Courses
-      .courses--tab The Newest
-      .courses--tab Top Rated
-      .courses--tab Most Popular
-    .courses--items.active
+      .courses--tab.opacity(data-courses-tab) All Courses
+      .courses--tab(data-courses-tab) The Newest
+      .courses--tab(data-courses-tab) Top Rated
+      .courses--tab(data-courses-tab) Most Popular
+    .courses--items.active(data-courses-items)
       .course
         .course--logo.course--logo-figma
         .course--info
@@ -53,6 +53,6 @@
         .course--time 5h 35min
         .course--rate 4,7
         a(href="http://").button.course--view View course
-    .courses--items The Newest
-    .courses--items Top Rated
-    .courses--items Most Popular
+    .courses--items(data-courses-items) The Newest
+    .courses--items(data-courses-items) Top Rated
+    .courses--items(data-courses-items) Most Popular

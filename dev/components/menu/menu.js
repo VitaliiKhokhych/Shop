@@ -1,11 +1,7 @@
 
-let width = document.documentElement.clientWidth;
-let = adap = document.getElementById('adptive');
-let modal = document.getElementById('modal');
+let adap = document.querySelector('[data-adptive]');
+let modal = document.querySelector('[data-modal]');
 
-if (width < 450){
-  adap.classList.add('block');
-  adap.onclick = function () {
-    modal.classList.toggle('active');
-  };
-}
+adap.onclick = function () {
+  modal.classList.toggle('active');
+};

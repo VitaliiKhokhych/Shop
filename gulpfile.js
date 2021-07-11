@@ -1,68 +1,69 @@
-let gulp = require('gulp');
-let plumber = require('gulp-plumber');
-let notify = require("gulp-notify");
-let concat = require('gulp-concat');
-let rename = require("gulp-rename");
+const gulp = require('gulp');
+const plumber = require('gulp-plumber');
+const notify = require("gulp-notify");
+const concat = require('gulp-concat');
+const rename = require("gulp-rename");
 
-let sass = require('gulp-sass');
-let autoprefixer = require('gulp-autoprefixer');
-let mmq = require('gulp-merge-media-queries');
-let cleanCSS = require('gulp-clean-css');
-let sourcemaps = require('gulp-sourcemaps');
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
+const mmq = require('gulp-merge-media-queries');
+const cleanCSS = require('gulp-clean-css');
+const sourcemaps = require('gulp-sourcemaps');
 
-let pug = require('gulp-pug');
-let clean = require('gulp-clean');
+const pug = require('gulp-pug');
+const clean = require('gulp-clean');
 
-let uglify = require('gulp-uglify');
+const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
-const changed = require('gulp-changed');
-
 
 let src = {
 	html: [
   'dev/index.pug'
   ],
 	style: [
+    'dev/fonts/stylesheet.sass',
     'dev/variables.sass',
 		'dev/mixins.sass', 
 		'dev/general.sass', 
+    'dev/components/menu/menu.sass', 
+    'dev/components/main/main.sass',
+    'dev/components/other/other.sass', 
 	],
-	script: []
+	script: [
+    'dev/components/menu/menu.js', 
+    'dev/components/main/main.js',
+  ],
+  image: [
+    './dev/favicon.ico', 
+    './dev/components/**/images/*.+(png|jpg|svg)'
+  ],
+  font: './dev/fonts/*.+(woff|woff2)',
 };
 
-let list = [
-  'menu', 
-  'main',
-  'other', 
-];
-
-
-
-for (let i = 0; i < list.length; i++) {
-  src.style.push(`dev/components/` + list[i] + `/**.sass`);
-  src.script.push(`dev/components/` + list[i] + `/**.js`);
-}
+const error = { errorHandler: notify.onError("Error: <%= error.message %>") };
+const prodScript = 'all.js'
+const prod = 'production/';
 
 gulp.task('pug2html', function buildHTML() {
   return gulp.src(src.html)
-  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+  .pipe(plumber(error))
   .pipe(pug({ pretty: true }))
-	.pipe(gulp.dest('production/'))
+	.pipe(gulp.dest(prod))
 });
 
 gulp.task('style:dev', function() {
   return gulp.src(src.style)
-  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+  .pipe(plumber(error))
   .pipe(sourcemaps.init())
   .pipe(concat('style.sass'))
   .pipe(sass())
   .pipe(sourcemaps.write('./'))
-  .pipe(gulp.dest('production/'))
+  .pipe(gulp.dest(prod))
 });
 
 gulp.task('style:pro', function() {
   return gulp.src(src.style)
-  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+  .pipe(plumber(error))
   .pipe(concat('style.sass'))
   .pipe(sass())
   .pipe(mmq({ 
@@ -70,23 +71,23 @@ gulp.task('style:pro', function() {
   }))
   .pipe(autoprefixer())
   .pipe(cleanCSS({ level: 2}))
-  .pipe(gulp.dest('production/'))
+  .pipe(gulp.dest(prod))
   .pipe(notify());
 });
 
 gulp.task('script:dev', function () {
   return gulp.src(src.script)
-  .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>") }))
-  .pipe(concat('all.js'))
-  .pipe(gulp.dest('production/'))
+  .pipe(plumber(error))
+  .pipe(concat(prodScript))
+  .pipe(gulp.dest(prod))
 });
   
 gulp.task('script:pro', function() {
   return gulp.src(src.script)
-  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-  .pipe(concat('all.js'))
+  .pipe(plumber(error))
+  .pipe(concat(prodScript))
   .pipe(uglify())
-  .pipe(gulp.dest('production/'))
+  .pipe(gulp.dest(prod))
   .pipe(notify());
 });
 
@@ -96,15 +97,15 @@ gulp.task('clean', function () {
 });
 
 gulp.task('image:dev', function () {
-  return gulp.src('./dev/favicon.ico', './dev/components/**/images/*.+(png|jpg|svg)')
+  return gulp.src(src.image)
   .pipe(rename({
     dirname: "images",
   }))
-  .pipe(gulp.dest('production/'));
+  .pipe(gulp.dest(prod));
 });
 
 gulp.task('image:pro', function () {
-  return gulp.src('./dev/favicon.ico', './dev/components/**/images/*.+(png|jpg|svg)')
+  return gulp.src(src.image)
   .pipe(imagemin([
     imagemin.gifsicle({interlaced: true}),
     imagemin.mozjpeg({quality: 75, progressive: true}),
@@ -123,11 +124,11 @@ gulp.task('image:pro', function () {
   .pipe(rename({
     dirname: "images",
   }))
-  .pipe(gulp.dest('production/'));
+  .pipe(gulp.dest(prod));
 });
 
 gulp.task('font', function () {
-  return gulp.src('./dev/fonts/*')
+  return gulp.src(src.font)
   .pipe(gulp.dest('production/fonts/'));
 });
 
@@ -136,21 +137,25 @@ gulp.task('watch:dev', function() {
   gulp.watch('dev/components/**/*.pug', gulp.parallel('pug2html'));
   gulp.watch(src.style, gulp.parallel('style:dev'));
   gulp.watch(src.script, gulp.parallel('script:dev'));
-  gulp.watch('./dev/fonts/*', gulp.parallel('font'));
-  gulp.watch('dev/components/**/images/*', gulp.parallel('image:dev'));
+  gulp.watch(src.font, gulp.parallel('font'));
+  gulp.watch(src.image, gulp.parallel('image:dev'));
 });
 
 gulp.task('dev', gulp.series(
+  gulp.parallel('clean'),
   gulp.parallel('pug2html', 'style:dev', 'script:dev', 'image:dev', 'font'),
   gulp.parallel('watch:dev')
-));
-
-
-gulp.task('watch:pro', function () {
-  gulp.watch('dev/components/**', gulp.parallel('pug2html'));
-  gulp.watch(src.style, gulp.parallel('style:pro'));
-  gulp.watch(src.script, gulp.parallel('script:pro'));
-  gulp.watch('dev/components/*/images/*', gulp.parallel('image:pro'));
+  ));
+  
+  
+  
+  gulp.task('watch:pro', function () {
+    gulp.watch('dev/index.pug', gulp.parallel('pug2html'));
+    gulp.watch('dev/components/**/*.pug', gulp.parallel('pug2html'));
+    gulp.watch(src.style, gulp.parallel('style:pro'));
+    gulp.watch(src.script, gulp.parallel('script:pro'));
+    gulp.watch(src.image, gulp.parallel('image:pro'));
+    gulp.watch(src.font, gulp.parallel('font'));
 });
 
 gulp.task('pro', gulp.series(
